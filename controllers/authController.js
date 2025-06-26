@@ -288,7 +288,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   //if so, update passwrod,
   user.password = req.body.password;
-  console.log(req.body.password, req.body.confirmPassword);
+  // console.log(req.body.password, req.body.confirmPassword);
   user.confirmPassword = req.body.confirmPassword;
   // from document middleware auto update passwordChangeAt
   await user.save();

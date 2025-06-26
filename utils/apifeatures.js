@@ -24,7 +24,7 @@ class ApiFeatures {
   sort() {
     if (this.queryString.sort) {
       const sortStr = this.queryString.sort.split(',').join(' ');
-      console.log(sortStr);
+      // console.log(sortStr);
       this.query = this.query.sort(sortStr);
     } else {
       this.query = this.query.sort('-createdAt');
@@ -36,7 +36,7 @@ class ApiFeatures {
   limitedFields() {
     if (this.queryString.fields) {
       const fields = this.queryString.fields.split(',').join(' ');
-      console.log(fields);
+      // console.log(fields);
       this.query = this.query.select(fields);
     } else {
       this.query = this.query.select('-__v');

@@ -73,7 +73,7 @@ exports.getOne = (Model, populateOptions) =>
 
 exports.getAll = Model =>
   catchAsync(async (req, res) => {
-    console.log(req.query);
+    // console.log(req.query);
 
     // For get all review document based on tour ID (hack XD)
     let filter = {};

@@ -14,7 +14,7 @@ const handleDuplicateFieldDB = err => {
 };
 
 const handleValidationErrorDB = err => {
-  console.log(err);
+  // console.log(err);
   const message = Object.values(err.errors)
     .map(el => el.message)
     .join('. ');
@@ -31,7 +31,7 @@ const handleJwtExpires = err => {
 };
 
 const sendErrorDev = (err, req, res) => {
-  console.log(req.originalUrl);
+  // console.log(req.originalUrl);
 
   if (req.originalUrl.startsWith('/api')) {
     return res.status(err.statusCode).json({
@@ -51,7 +51,7 @@ const sendErrorDev = (err, req, res) => {
 const sendErrorProd = (err, req, res) => {
   if (req.originalUrl.startsWith('/api')) {
     if (err?.isOperational) {
-      console.log(err.message);
+      // console.log(err.message);
       return res.status(err.statusCode).json({
         status: err.status,
         message: err.message
