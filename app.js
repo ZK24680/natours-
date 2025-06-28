@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const morgan = require('morgan');
 const comperssion = require('compression');
+const cors = require('cors');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 const tourRouter = require('./routes/tourRoutes');
@@ -90,6 +91,9 @@ app.use(
     ]
   })
 );
+
+app.use(cors());
+app.options('*', cors());
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
