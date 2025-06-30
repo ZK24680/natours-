@@ -12,7 +12,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   //Crate Session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    success_url: `${req.protocol}://${req.host}/my-tours/`,
+    success_url: `${req.protocol}://${req.host}/my-tours`,
     cancel_url: `${req.protocol}://${req.host}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: tour.id,
@@ -58,7 +58,7 @@ const createBooking = async session => {
   await Booking.create({ tour, user, price });
 };
 
-exports.getWebHookCheckout = (req, res, next) => {
+exports.getWebHookCheckout = async (req, res, next) => {
   const signature = req.headers['stripe-signature'];
 
   let event;
@@ -73,7 +73,7 @@ exports.getWebHookCheckout = (req, res, next) => {
   }
 
   if (event.type === 'checkout.session.completed') {
-    createBooking(event.data.object);
+    await createBooking(event.data.object);
   }
 
   res.status(200).json({ recived: true });
