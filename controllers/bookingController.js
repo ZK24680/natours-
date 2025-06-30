@@ -12,8 +12,8 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
   //Crate Session
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    success_url: `${req.protocol}://${req.host}/my-tours`,
-    cancel_url: `${req.protocol}://${req.host}/tour/${tour.slug}`,
+    success_url: `${req.protocol}://${req.hostname}/my-tours`,
+    cancel_url: `${req.protocol}://${req.hostname}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: tour.id,
     line_items: [
@@ -25,7 +25,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
             name: `${tour.name} Tour`,
             description: tour.summary,
             images: [
-              `${req.protocol}://${req.host}/img/tours/${tour.imageCover}`
+              `${req.protocol}://${req.hostname}/img/tours/${tour.imageCover}`
             ]
           }
         },
