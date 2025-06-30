@@ -11,6 +11,7 @@ const comperssion = require('compression');
 const cors = require('cors');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
+const { getWebHookCheckout } = require('./controllers/bookingController');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
@@ -67,6 +68,12 @@ app.use(limiter);
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+app.use(
+  '/webhook-checkout',
+  express.raw({ type: 'application/json' }),
+  getWebHookCheckout
+);
 
 //Body parser middle
 app.use(express.json());
